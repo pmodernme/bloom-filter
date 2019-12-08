@@ -24,7 +24,7 @@ func New(s uint) *Filter {
 }
 
 // Add an item as []byte to the filter
-func (f Filter) Add(item []byte) {
+func (f *Filter) Add(item []byte) {
 	hashes := f.hashes(item)
 
 	for _, h := range hashes {
@@ -37,7 +37,7 @@ func (f Filter) Add(item []byte) {
 
 // Lookup if an item as []byte matches the contents of the filter
 // (can result in false positives)
-func (f Filter) Lookup(item []byte) bool {
+func (f *Filter) Lookup(item []byte) bool {
 	hashes := f.hashes(item)
 
 	for _, h := range hashes {
@@ -50,7 +50,7 @@ func (f Filter) Lookup(item []byte) bool {
 	return true
 }
 
-func (f Filter) hashes(item []byte) []uint64 {
+func (f *Filter) hashes(item []byte) []uint64 {
 	var h []uint64
 
 	for _, hf := range f.hashFuncs {
